@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteka</title>
+</head>
+<body>
+    <table>
+        <thead>
+        {% for field in form if field.widget.input_type != 'hidden' %}
+        <th>{{field.label}}</th> 
+        {% endfor %}</thead>
+            
+   {% for book in books %}
+   <tr>
+    <td><a href="/biblioteka/{{ loop.index }}">{{ book.title }}</a></td>
+    <td>{{ book.title }}</td>
+    <td>{{ book.author}}</td>
+    <td>{{ book.year}}</td>
+    <td>{{ book.genre}}</td>
+    <td>{{ book.description}}</td>
+</tr>
+{% endfor %}
+</table>
+<form method="POST" name="biblioteka" action="/biblioteka">
+    {{ form.hidden_tag() }}
+    <table>
+        {% for field in form if field.widget.input_type != 'hidden' %}
+        <tr>
+            <th>{{field.label}} {% if field.flags.required %}*{% endif %}
+                <td>{{field}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <input type="submit" value="Go">
+</form>  
+
+
+</body>
+</html>
